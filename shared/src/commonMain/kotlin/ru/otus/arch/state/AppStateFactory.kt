@@ -21,7 +21,7 @@ internal interface AppStateFactory {
 internal class AppStateFactoryImpl(
     private val createUserListState: UserListState.Factory,
     private val createUserProfileState: UserProfileState.Factory,
-    private val createLogin: BasicLoginState.Factory,
+    private val createLogin: AuthProxy.Factory,
     private val createAddingUserState: AddingUserState.Factory,
     private val createDeletingUserState: DeletingUserState.Factory
 ) : AppStateFactory {

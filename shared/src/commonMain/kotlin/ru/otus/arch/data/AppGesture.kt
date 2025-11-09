@@ -1,5 +1,6 @@
 package ru.otus.arch.data
 
+import ru.otus.arch.basicauth.data.BasicAuthGesture
 import kotlin.js.JsExport
 
 @JsExport
@@ -19,8 +20,7 @@ sealed class AppGesture {
         data class InterestsChanged(val interests: String) : AppGesture()
     }
 
-    data object DeleteUser : AppGesture()
+    data class Auth(val child: BasicAuthGesture) : AppGesture()
 
-    data class UsernameChanged(val username: String) : AppGesture()
-    data class PasswordChanged(val password: String) : AppGesture()
+    data object DeleteUser : AppGesture()
 }

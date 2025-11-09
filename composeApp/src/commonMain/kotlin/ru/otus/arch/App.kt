@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import ru.otus.arch.basicauth.data.BasicAuthUiState
 import ru.otus.arch.data.AppGesture
 import ru.otus.arch.data.AppUiState
 import ru.otus.arch.ui.AddUserScreen
@@ -41,10 +42,12 @@ fun App(model: Model, onTerminated: () -> Unit = { }) {
                 onDismiss = { model.process(AppGesture.Action) },
                 onBack = onBack
             )
-            is AppUiState.Login -> LoginScreen(
-                state = state,
-                onGesture = model::process
-            )
+            is AppUiState.Auth -> when(val child = state.child) {
+                is BasicAuthUiState.Login -> LoginScreen(
+                    state = child,
+                    onGesture = { model.process(AppGesture.Auth(it)) }
+                )
+            }
             is AppUiState.AddUserForm -> AddUserScreen(
                 state = state,
                 onGesture = model::process

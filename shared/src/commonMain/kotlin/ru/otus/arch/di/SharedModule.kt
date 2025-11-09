@@ -6,6 +6,7 @@ import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import org.kodein.di.instance
 import ru.otus.arch.Model
+import ru.otus.arch.basicauth.di.basicAuthModule
 import ru.otus.arch.net.UsersApi
 import ru.otus.arch.net.UsersApiImpl
 import ru.otus.arch.net.ktorHttpClient
@@ -28,6 +29,7 @@ val sharedModule = DI.Module("shared") {
     bindProvider<AddUser> { AddUserImpl(instance()) }
     bindProvider<DeleteUser> { DeleteUserImpl(instance()) }
 
+    import(basicAuthModule)
     import(stateModule)
 
     bindProvider { Model(instance()) }

@@ -61,6 +61,7 @@ kotlin {
 
             // Components
             implementation(projects.datastore)
+            implementation(projects.basicauth)
 
             implementation(libs.kotlinx.datetime)
             implementation(compose.runtime)

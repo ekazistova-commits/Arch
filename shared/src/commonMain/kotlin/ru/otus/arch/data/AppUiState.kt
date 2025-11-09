@@ -1,5 +1,6 @@
 package ru.otus.arch.data
 
+import ru.otus.arch.basicauth.data.BasicAuthUiState
 import kotlin.js.JsExport
 
 @JsExport
@@ -15,17 +16,12 @@ sealed class AppUiState {
     ) : AppUiState()
     data class UserProfile(val profile: Profile) : AppUiState()
 
-    data class Login(
-        val username: String,
-        val password: String,
-        val isEnabled: Boolean,
-        val error: Throwable?
-    ) : AppUiState()
-
     data class AddUserForm(
         val name: String,
         val age: Int,
         val interests: String,
         val addEnabled: Boolean
     ) : AppUiState()
+
+    data class Auth(val child: BasicAuthUiState) : AppUiState()
 }

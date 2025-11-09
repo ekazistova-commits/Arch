@@ -30,7 +30,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.domain)
-            implementation(projects.basicauth)
             implementation(libs.kotlinx.coroutinesCore)
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.kotlinx.serialization.json)
@@ -55,7 +54,7 @@ kotlin {
 }
 
 android {
-    namespace = "ru.otus.arch.shared"
+    namespace = "ru.otus.arch.basicauth"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

@@ -1,19 +1,17 @@
-package ru.otus.arch.state
+package ru.otus.arch.basicauth.state
 
 import kotlinx.coroutines.launch
-import ru.otus.arch.data.AppGesture
-import ru.otus.arch.data.AppUiState
+import ru.otus.arch.basicauth.data.BasicAuthGesture
+import ru.otus.arch.basicauth.data.BasicAuthUiState
 import ru.otus.arch.domain.session.SessionManager
 import ru.otus.arch.domain.session.data.Session
 import kotlin.properties.Delegates
 
-internal class BasicLoginState(
-    context: AppContext,
+internal class LoginState(
+    context: BasicAuthContext,
     private val error: Throwable?,
-    private val onLogin: AppStateFactory.() -> AppState,
-    private val onCancel: AppStateFactory.() -> AppState,
     private val sessionManager: SessionManager
-) : BaseAppState(context) {
+) : BasicAuthState(context) {
 
     private data class LoginData(val username: String, val password: String)
 
@@ -29,30 +27,38 @@ internal class BasicLoginState(
         render(loginData)
     }
 
-    override fun doProcess(gesture: AppGesture) {
+    @Suppress("REDUNDANT_ELSE_IN_WHEN")
+    override fun doProcess(gesture: BasicAuthGesture) {
         when(gesture) {
-            is AppGesture.UsernameChanged -> updateData {
+            is BasicAuthGesture.UsernameChanged -> updateData {
                 copy(username = gesture.username)
             }
-            is AppGesture.PasswordChanged -> updateData {
+            is BasicAuthGesture.PasswordChanged -> updateData {
                 copy(password = gesture.password)
             }
-            AppGesture.Action -> login()
-            AppGesture.Back -> setMachineState(factory.onCancel())
+            BasicAuthGesture.Action -> {
+                login()
+            }
+            BasicAuthGesture.Back -> {
+                flowHost.onCancel()
+            }
             else -> super.doProcess(gesture)
         }
     }
 
     private fun LoginData.isValid(): Boolean = username.isNotBlank() && password.isNotBlank()
 
-    private fun login() = stateScope.launch {
-        sessionManager.login(loginData.username, loginData.password)
-        setMachineState(factory.onLogin())
+    private fun login() {
+        if (loginData.isValid().not()) return
+        stateScope.launch {
+            sessionManager.login(loginData.username, loginData.password)
+            flowHost.onLogin()
+        }
     }
 
     private fun render(loginData: LoginData) {
         setUiState(
-            AppUiState.Login(
+            BasicAuthUiState.Login(
                 username = loginData.username,
                 password = loginData.password,
                 isEnabled = loginData.isValid(),
@@ -63,15 +69,11 @@ internal class BasicLoginState(
 
     class Factory(private val sessionManager: SessionManager) {
         operator fun invoke(
-            context: AppContext,
+            context: BasicAuthContext,
             error: Throwable?,
-            onLogin: AppStateFactory.() -> AppState,
-            onCancel: AppStateFactory.() -> AppState,
-        ) = BasicLoginState(
+        ) = LoginState(
             context,
             error,
-            onLogin,
-            onCancel,
             sessionManager
         )
     }
