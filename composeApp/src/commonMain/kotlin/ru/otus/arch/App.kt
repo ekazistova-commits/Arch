@@ -11,6 +11,7 @@ import ru.otus.arch.data.AppUiState
 import ru.otus.arch.ui.AddUserScreen
 import ru.otus.arch.ui.BackHandler
 import ru.otus.arch.ui.ErrorScreen
+import ru.otus.arch.ui.ForgotPasswordScreen
 import ru.otus.arch.ui.LoadingScreen
 import ru.otus.arch.ui.LoginScreen
 import ru.otus.arch.ui.ProfileScreen
@@ -44,6 +45,10 @@ fun App(model: Model, onTerminated: () -> Unit = { }) {
             )
             is AppUiState.Auth -> when(val child = state.child) {
                 is BasicAuthUiState.Login -> LoginScreen(
+                    state = child,
+                    onGesture = { model.process(AppGesture.Auth(it)) }
+                )
+                is BasicAuthUiState.ForgotPassword -> ForgotPasswordScreen(
                     state = child,
                     onGesture = { model.process(AppGesture.Auth(it)) }
                 )

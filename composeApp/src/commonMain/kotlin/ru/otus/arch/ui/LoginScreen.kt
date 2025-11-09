@@ -24,6 +24,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import arch.composeapp.generated.resources.Res
+import arch.composeapp.generated.resources.forgot_password
 import arch.composeapp.generated.resources.ic_back
 import arch.composeapp.generated.resources.input_login
 import arch.composeapp.generated.resources.input_password
@@ -97,6 +98,13 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(stringResource(Res.string.login))
+            }
+
+            Button(
+                onClick = { onGesture(BasicAuthGesture.ForgotPassword) },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(Res.string.forgot_password))
             }
         }
     }

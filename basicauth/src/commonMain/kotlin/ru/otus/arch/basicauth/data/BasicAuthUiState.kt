@@ -10,4 +10,9 @@ sealed class BasicAuthUiState {
         val isEnabled: Boolean,
         val error: Throwable?
     ) : BasicAuthUiState()
+
+    data class ForgotPassword(
+        val username: String,
+        val password: String
+    ) : BasicAuthUiState()
 }

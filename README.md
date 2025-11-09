@@ -40,3 +40,23 @@ npm start
 - Подключите DI-модуль реализации в [основной модуль приложения](composeApp/src/commonMain/kotlin/ru/otus/arch/di/AppModule.kt)
 - Подключите зависимость на новый модуль реализации в [js-модуль приложения](jsApp/build.gradle.kts)
 - Подключите DI-модуль реализации в [js-модуль приложения](jsApp/src/webMain/kotlin/ru/otus/arch/di/AppModule.kt)
+
+## ДЗ 2. Управление состоянием*
+**НЕ ДЛЯ РЕАЛЬНОГО ПРИМЕНЕНИЯ! В УЧЕБНЫХ ЦЕЛЯХ!**
+В этом задании вам предстоит попробовать создать собственное состояние `CommonMachineState` для 
+напоминания логина и пароля:
+
+- В [жесты](basicauth/src/commonMain/kotlin/ru/otus/arch/basicauth/data/BasicAuthGesture.kt) модуля 
+  авторизации добавлен жест `ForgotPassword`.
+- В [состояния экрана](basicauth/src/commonMain/kotlin/ru/otus/arch/basicauth/data/BasicAuthUiState.kt)
+  модуля авторизации добавлено состояние `ForgotPassword`.
+- Реализуйте новое состояние `ForgotPasswordState`, в которое будет переходить основное состояние модуля
+  при нажатии на кнопку `Forgot password`.
+- Сохраняйте поле ошибки при переходах на экран напоминания и обратно.
+- Обновляете состояние экрана в `ForgotPassword` с **хардкодными** значениями имени пользователя и пароля.
+  Значения полей можно взять из [констант сервера](server/src/main/kotlin/ru/otus/arch/server/Constants.kt).
+  Никаких механизмов чтения файлов делать не нужно! Просто скопируйте текст.
+- Обрабатывайте жест `BasicAuthGesture.Back` и возвращайтесь на основной экран модуля.
+- Обрабатывайте жест `BasicAuthGesture.Action` и возвращайтесь на основной экран модуля.
+ 
+
