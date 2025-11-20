@@ -1,32 +1,20 @@
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalDistributionDsl
-
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
+    kotlin("multiplatform")
 }
 
 kotlin {
-    compilerOptions.optIn.add("kotlin.time.ExperimentalTime")
-    compilerOptions.optIn.add("kotlin.js.ExperimentalJsExport")
-
-    js {
-        browser()
-        binaries.library()
-        generateTypeScriptDefinitions()
+    js(IR) {
         browser {
-            @OptIn(ExperimentalDistributionDsl::class)
-            distribution {
-                outputDirectory.set(file("$projectDir/output/npm"))
-            }
         }
+        binaries.executable()
     }
 
     sourceSets {
-        commonMain.dependencies {
-            implementation(projects.domain)
-            implementation(projects.shared)
-            implementation(projects.memory)
-            implementation(libs.kotlinx.coroutinesCore)
-            implementation(libs.kodein)
+        val commonMain by getting {
+            dependencies {
+                implementation(project(":domain"))
+                implementation(project(":memory"))
+            }
         }
     }
 }

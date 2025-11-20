@@ -1,11 +1,9 @@
 package ru.otus.arch
 
-import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.window.ComposeViewport
+import androidx.compose.web.renderComposable
 
-@OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport {
+    renderComposable(rootElementId = "root") {
         App()
     }
 }

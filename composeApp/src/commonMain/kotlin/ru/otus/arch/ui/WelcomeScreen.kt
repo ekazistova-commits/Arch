@@ -21,30 +21,11 @@ fun WelcomeScreen(onGesture: (AppGesture) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(Res.string.welcome)) },
+                title = { Text("Weather App") },
             )
         }
     ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(AppDimens.marginHorizontal),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = stringResource(Res.string.welcome),
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(bottom = AppDimens.marginVertical)
-            )
-            Button(
-                onClick = { onGesture(AppGesture.Action) },
-                modifier = Modifier.padding(top = AppDimens.marginVertical)
-            ) {
-                Text(stringResource(Res.string.next))
-            }
-        }
+        WeatherScreen()
     }
 }
 
@@ -52,6 +33,6 @@ fun WelcomeScreen(onGesture: (AppGesture) -> Unit) {
 @Composable
 private fun WelcomeScreenPreview() {
     MaterialTheme {
-        WelcomeScreen {  }
+        WelcomeScreen { }
     }
 }

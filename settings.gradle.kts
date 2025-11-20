@@ -1,15 +1,6 @@
-rootProject.name = "Arch"
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
 pluginManagement {
     repositories {
-        google {
-            mavenContent {
-                includeGroupAndSubgroups("androidx")
-                includeGroupAndSubgroups("com.android")
-                includeGroupAndSubgroups("com.google")
-            }
-        }
+        google()
         mavenCentral()
         gradlePluginPortal()
     }
@@ -17,30 +8,19 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        google {
-            mavenContent {
-                includeGroupAndSubgroups("androidx")
-                includeGroupAndSubgroups("com.android")
-                includeGroupAndSubgroups("com.google")
-            }
-        }
+        google()
         mavenCentral()
     }
 }
 
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-}
+rootProject.name = "Arch"
 
-includeBuild("constgenerator")
-
+include(":domain")
+include(":memory")
 include(":composeApp")
 include(":jsApp")
-include(":server")
-include(":shared")
-include(":model")
-include(":domain")
-include(":domainmock")
-include(":memory")
-include(":datastore")
-include(":basicauth")
+// include(":shared")
+// include(":server")
+// include(":domainmock")
+// include(":datastore")
+// include(":basicauth")

@@ -5,18 +5,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import ru.otus.arch.ui.WeatherScreen
 
 class MainActivity : ComponentActivity() {
-
-    private val model: MainActivityViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-
         setContent {
-            App(model.model) {
-                finish()
+            MaterialTheme {
+                WeatherScreen()
             }
         }
     }

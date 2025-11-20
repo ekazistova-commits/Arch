@@ -1,25 +1,21 @@
 package ru.otus.arch
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import org.kodein.di.DI
-import org.kodein.di.direct
-import org.kodein.di.instance
-import ru.otus.arch.di.appModule
 
 fun main() = application {
-    val di = DI {
-        import(appModule)
-    }
-
-    val model = di.direct.instance<Model>()
-
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = "Network",
-    ) {
-        App(model) {
-            exitApplication()
+    Window(onCloseRequest = ::exitApplication) {
+        MaterialTheme {
+            App()
         }
     }
+}
+
+@Preview
+@Composable
+fun AppPreview() {
+    App()
 }
